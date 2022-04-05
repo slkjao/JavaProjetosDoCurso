@@ -31,21 +31,23 @@ public class Program {
 			System.out.println("Reserva confirmada com sucesso!");
 			System.out.println(reserva.toString());
 			System.out.println();
+			
+			
 			System.out.println("Atualizar reserva");
 			System.out.println("Check-in date (dd/MM/yyyy): ");
 			checkIn = sdf.parse(sc.next());
 			System.out.println("Check-out date (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
-
-			Date now = new Date();
-			if (checkIn.before(now) || checkOut.before(now)) {
-				System.out.println("ERRO! AS DATAS DEVEM SER FUTURAS");
-			} else if (!checkOut.after(checkIn)) {
-				System.out.println("DATA ERRADA TA SAINDO ANTES DE ENTRAR");
+			
+			String erro = reserva.updateDates(checkIn, checkOut);
+			if(erro != null) {
+				System.out.println("Erro na reserva! " + erro);
 			} else {
-				reserva.updateDates(checkIn, checkOut);
+				System.out.println("Reserva confirmada!");
 				System.out.println(reserva.toString());
 			}
+			
+
 		}
 	}
 }
